@@ -1,16 +1,18 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import Layout from "../components/layout.astro";
+import { getCollection } from "astro:content";
 
+const latest: CollectionEntry<"posts"> = (await getCollection("posts"))[0];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<h1>Mi blog</h1>
+	<div class="card" style="width: 18rem;">
+		<img src="https://placehold.co/80" class="card-img-top" alt="..."/>
+	  <div class="card-body">
+		<p class="card-title">{latest.data.title}</p>
+	  </div>
+	  <a href={`/blog/${latest.slug}`} class="btn btn-primary">Ir a artículo</a>
+	</div>
+</Layout>

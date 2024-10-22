@@ -1,0 +1,30 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../components/layout.astro";
+
+const blogEntries: CollectionEntry<"posts">[] = await getCollection("posts");
+---
+
+<Layout>
+    <div>
+        <h1>Artículos</h1>
+    
+        {
+          blogEntries.map((b) => {
+            return (
+              
+                <div class="card" style="width: 18rem;">
+                    <img src="https://placehold.co/80" class="card-img-top" alt="..."/>
+                  <div class="card-body">
+                    <p class="card-title">{b.data.title}</p>
+                  </div>
+                  <a href={`/blog/${b.slug}`} class="btn btn-primary">Ir a artículo</a>
+                </div>
+              
+            );
+          }).slice(0,3)
+        }
+    
+        <button id="load">Cargar más</button>
+      </div>
+</Layout>
